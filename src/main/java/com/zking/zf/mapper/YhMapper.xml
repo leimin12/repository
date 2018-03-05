@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.zf.mapper.YhMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.zf.model.Yh" >
+    <constructor >
+      <idArg column="yhbh" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="yhzh" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="yhmm" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    yhbh, yhzh, yhmm
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_yh
+    where yhbh = #{yhbh,jdbcType=INTEGER}
+  </select>
+    <select id="doLogin" resultType="com.zking.zf.model.Yh" parameterType="com.zking.zf.model.Yh">
+      SELECT * from t_yh WHERE 1=1
+        and yhzh = #{yhzh,jdbcType=VARCHAR}
+         and yhmm = #{yhmm,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_yh
+    where yhbh = #{yhbh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.zf.model.Yh" >
+    insert into t_yh (yhbh, yhzh, yhmm
+      )
+    values (#{yhbh,jdbcType=INTEGER}, #{yhzh,jdbcType=VARCHAR}, #{yhmm,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.zf.model.Yh" >
+    insert into t_yh
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="yhbh != null" >
+        yhbh,
+      </if>
+      <if test="yhzh != null" >
+        yhzh,
+      </if>
+      <if test="yhmm != null" >
+        yhmm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="yhbh != null" >
+        #{yhbh,jdbcType=INTEGER},
+      </if>
+      <if test="yhzh != null" >
+        #{yhzh,jdbcType=VARCHAR},
+      </if>
+      <if test="yhmm != null" >
+        #{yhmm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.zf.model.Yh" >
+    update t_yh
+    <set >
+      <if test="yhzh != null" >
+        yhzh = #{yhzh,jdbcType=VARCHAR},
+      </if>
+      <if test="yhmm != null" >
+        yhmm = #{yhmm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where yhbh = #{yhbh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.zf.model.Yh" >
+    update t_yh
+    set yhzh = #{yhzh,jdbcType=VARCHAR},
+      yhmm = #{yhmm,jdbcType=VARCHAR}
+    where yhbh = #{yhbh,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.zf.mapper.FwlxMapper" >
+  <cache type="com.zking.zf.redis.RedisCache" />
+  <resultMap id="BaseResultMap" type="com.zking.zf.model.Fwlx" >
+    <constructor >
+      <idArg column="lxbh" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="lxmc" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lxbh, lxmc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_fwlx
+    where lxbh = #{lxbh,jdbcType=INTEGER}
+  </select>
+    <select id="list" resultType="com.zking.zf.model.Fwlx" parameterType="com.zking.zf.model.Fwlx">
+      SELECT  * FROM t_fwlx
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_fwlx
+    where lxbh = #{lxbh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.zf.model.Fwlx" >
+    insert into t_fwlx (lxbh, lxmc)
+    values (#{lxbh,jdbcType=INTEGER}, #{lxmc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.zf.model.Fwlx" >
+    insert into t_fwlx
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lxbh != null" >
+        lxbh,
+      </if>
+      <if test="lxmc != null" >
+        lxmc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lxbh != null" >
+        #{lxbh,jdbcType=INTEGER},
+      </if>
+      <if test="lxmc != null" >
+        #{lxmc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.zf.model.Fwlx" >
+    update t_fwlx
+    <set >
+      <if test="lxmc != null" >
+        lxmc = #{lxmc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lxbh = #{lxbh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.zf.model.Fwlx" >
+    update t_fwlx
+    set lxmc = #{lxmc,jdbcType=VARCHAR}
+    where lxbh = #{lxbh,jdbcType=INTEGER}
+  </update>
+</mapper>
